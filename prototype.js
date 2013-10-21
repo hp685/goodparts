@@ -92,5 +92,25 @@ document.write(myObject.value + '<br/>');
 myObject.increment(18);
 document.write("Incrementing the previous value by 18 := " + myObject.value + '<br/>');
 
+//standalone functions
+
+myObject.double = function(){
+    var that = this;
+    var helper = function(){
+	that.value = add(that.value, that.value);
+    };
+    helper(); //Standalone
+};
+
+myObject.double();
+document.write(myObject.value + '<br/>');
+
+
+//Invocation patterns 
+//Method invocation pattern
+//Function invocation pattern
+//constructor invocation pattern
+//Apply invocation pattern
+
 
 
