@@ -112,5 +112,115 @@ document.write(myObject.value + '<br/>');
 //constructor invocation pattern
 //Apply invocation pattern
 
+//Constructor invocation pattern
+var Quo = function(string){
+    this.status = string;
+};
 
+Quo.prototype.get_status = function(){
+    return this.status;
+}
+
+var myQuo = new Quo("confused");
+
+document.write(myQuo.get_status() + '<br/>');
+//try this out!
+document.write((new Quo("foo").get_status()) + '<br/>');
+
+//Apply invocation pattern
+
+var array = [3,5];
+
+var sum = add.apply(null, array);
+
+var statusObject = {
+    status : 'A-OK'
+};
+
+var status = Quo.prototype.get_status.apply(statusObject);
+document.write(status + '<br/>');
+
+//The arguments array
+
+var sum = function(){
+    var i, sum = 0;
+    for(i = 0; i < arguments.length; i += 1){ // arguments array 
+	sum += arguments[i]; //array access
+    }
+    return sum;
+};
+
+document.write(sum(23,4,23,435,623,34,52,34,23,45,6,7,3,345) + '<br/>');
+document.write(sum(223,52,3) + '<br/>');
+document.write(sum(2, -43, 4,4) + '<br/>');
+
+//Exceptions
+
+var add = function(a,b){
+    if(typeof a !== 'number' || typeof b !== 'number'){
+	throw{
+	    name : 'TypeError',
+	    message : 'add needs numbers' 
+	};
+    }
+return a + b;
+}
+
+//define erroneously
+var try_it = function(){
+    try{
+	add("seven");
+    }catch(e){
+	document.write(e.name + ':' + e.message);
+    }
+}
+
+try_it();
+
+//Augmenting types
+
+
+Function.prototype.method = function(name, func){
+    this.prototype[name] = func;
+    return this;
+}
+
+
+//Augmenting javascript's Number.prototype 
+// Number.method('integer', function() {
+//     return Math[this < 0 ? 'ceiling' : 'floor'](this);
+// });
+
+// document.writeln((-10 / 3).integer() + '<br/>'); 
+// document.write("foo");
+ 
+
+// Function.prototype.method = function(name, func){
+//     if(!this.prototype[name]){
+// 	this.prototype[name] = func;
+//     }
+// };
+
+//hanoi using recursion in js
+
+var hanoi = function(disc, src, aux, dst){
+    if(disc > 0){
+	hanoi(disc - 1, src, dst, aux);
+	document.writeln('Move disc ' + disc + ' from ' + src + ' to ' + dst + '<br/>');
+	hanoi(disc - 1, aux, src, dst);
+    }
+};
+
+hanoi(10, 'Src', 'Aux', 'Dst');
+
+//Walk the DOM
+//DFS
+var walk_the_DOM = function walk(node, func){
+    func(node);
+    node = node.firstChild;
+    while(node){
+	walk(node, func);
+	node = node.nextSibling;
+    }
+};
 
