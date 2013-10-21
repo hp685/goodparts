@@ -224,3 +224,5 @@ var walk_the_DOM = function walk(node, func){
     }
 };
 
+//JS does not provide tail recursion optimiztion; Functions that recurse deeply can fail by exhausting the return stack
+
