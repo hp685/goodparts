@@ -226,3 +226,48 @@ var walk_the_DOM = function walk(node, func){
 
 //JS does not provide tail recursion optimiztion; Functions that recurse deeply can fail by exhausting the return stack
 
+var myObject = function() {
+    var value = 0;
+    
+    return {
+		increment : function(inc){
+	    value += typeof inc === 'number' ? inc : 1;
+	},
+	    
+	getValue : function(){
+	    return value;
+	}
+    };
+}();
+
+//Not assigning a function to myObject here, instead the result of invoking that function is being assigned here
+
+//The functions increment and getValue have access to the value variable
+
+var quo = function (status) {
+    return {
+	get_status : function(){
+	    return status;
+	}
+    };
+};
+
+var myQuo = quo("amazed");
+
+document.writeln(myQuo.get_status() + '<br/>');
+
+var fade = function(node) {
+    var level = 1;
+    var step = function(){
+	var hex = level.toString(16);
+	node.style.backgroundColor = '#FFFF' + hex + hex;
+	if(level < 15) {
+	    level += 1;
+	    setTimeout(step, 100);
+	}
+    };
+    setTimeout(step, 100);
+};
+
+fade(document.body);
+
